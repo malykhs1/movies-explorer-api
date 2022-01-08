@@ -26,6 +26,23 @@ const validateEmailAndPassword = celebrate({
   }),
 });
 
+const validateRegistration = celebrate({
+  body: Joi.object().keys({
+    email: Joi.string().email().lowercase().required()
+      .messages({
+        'any.required': 'Поле "Email" обязательно должно быть заполнено',
+      }),
+    name: Joi.string().required().min(2).max(30)
+      .messages({
+        'any.required': 'Поле "Name" обязательно должно быть заполнено',
+      }),
+    password: Joi.string().min(8).required().strict()
+      .messages({
+        'any.required': 'Поле "Password" обязательно должно быть заполнено',
+      }),
+  }),
+});
+
 const validateMovieBody = celebrate({
   body: Joi.object().keys({
     nameRU: Joi.string().required()
@@ -77,6 +94,7 @@ const validateMovieId = celebrate({
 });
 
 module.exports = {
+  validateRegistration,
   validateEmailAndPassword,
   validatateUserBody,
   validateMovieBody,
