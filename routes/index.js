@@ -8,8 +8,8 @@ const auth = require('../middlewares/auth');
 const { validateEmailAndPassword, validateRegistration } = require('../middlewares/validation');
 
 router.post('/signup', validateRegistration, createUser);
-
 router.post('/signin', validateEmailAndPassword, loginUser);
+
 router.use('/users', auth, userRouter);
 router.use('/movies', auth, movieRouter);
 
