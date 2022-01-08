@@ -10,7 +10,5 @@ module.exports = {
   ],
   rules: {
     'no-underscore-dangle': ['off', { allow: ['_id'] }],
-    'consistent-return': 'off',
-    'no-unused-vars': 'off',
   },
 };

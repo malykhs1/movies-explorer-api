@@ -4,7 +4,6 @@ const isEmail = require('validator/lib/isEmail');
 const userSchema = new mongoose.Schema({
   email: {
     type: String,
-    required: true,
     unique: true,
     validate: {
       validator: (v) => isEmail(v),
@@ -13,14 +12,16 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true,
+    require: true,
     minlength: 8,
     select: false,
   },
   name: {
     type: String,
+    require: true,
     minlength: 2,
     maxlength: 30,
+    default: 'Some Name',
   },
 });
 

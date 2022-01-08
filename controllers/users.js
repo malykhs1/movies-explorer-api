@@ -23,7 +23,7 @@ const getCurrentUser = (req, res, next) => {
       throw new NotFoundError('Токен не найден');
     })
     .catch((e) => {
-      if (e.name === 'CastError') {
+      if (e.name === 'ValidationError') {
         next(new BadRequestError('Переданы некорректные данные'));
       } next(e);
     });
@@ -52,7 +52,7 @@ const createUser = (req, res, next) => {
         .catch(next);
     })
     .catch((e) => {
-      if (e.name === 'CastError') {
+      if (e.name === 'ValidationError') {
         next(new BadRequestError('Переданы некорректные данные'));
       } next(e);
     });
@@ -96,9 +96,13 @@ const updateUser = (req, res, next) => User.findByIdAndUpdate(
 )
   .then((user) => res.status(200).send(user))
   .catch((e) => {
-    if (e.name === 'CastError') {
+    if (e.name === 'ValidationError') {
       next(new BadRequestError('Переданы некорректные данные'));
-    } next(e);
+    } else if (e.name === 'MongoServerError') {
+      next(new ConflictError('Введенные данные уже используются'));
+    } else {
+      next(e);
+    }
   });
 
 module.exports = {
