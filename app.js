@@ -11,7 +11,7 @@ const mongoose = require('mongoose');
 // импортов роутов
 const { errors } = require('celebrate');
 // устанавливаем Rate Limeter
-const rateLimit = require('express-rate-limit');
+const { limiter } = require('./middlewares/limiter');
 const routes = require('./routes/index');
 // обработчик ошибок
 const errorHandler = require('./middlewares/handlerError');
@@ -24,14 +24,10 @@ mongoose.connect(DATABASE, {
   useNewUrlParser: true,
 });
 
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 100,
-});
-
 app.use(helmet());
 app.use(express.json());
 app.use(requestLogger);
+app.use(limiter);
 
 app.use(routes);
 app.use(errorLogger); // подключаем логгер ошибок
@@ -39,7 +35,6 @@ app.use(errorLogger); // подключаем логгер ошибок
 app.use(errors());
 
 app.use(errorHandler);
-app.use(limiter);
 
 app.listen(PORT, () => {
   // Если всё работает, консоль покажет, какой порт приложение слушает

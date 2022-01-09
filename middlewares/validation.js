@@ -74,8 +74,8 @@ const validateMovieBody = celebrate({
     thumbnail: Joi.string().regex(/^((ftp|http|https):\/\/)?(www\.)?([A-Za-zА-Яа-я0-9]{1}[A-Za-zА-Яа-я0-9-]*\.?)*\.{1}[A-Za-zА-Яа-я0-9-]{2,8}(\/([\w#!:.?+=&%@!\-/])*)?/).required().messages({
       'any.required': 'Поле "Thumbnail" обязательно должно быть заполнено',
     }),
-    movieID: Joi.number().required().messages({
-      'any.required': 'Поле "movieID" обязательно должно быть заполнено',
+    movieId: Joi.number().required().messages({
+      'any.required': 'Поле "movieId" обязательно должно быть заполнено',
     }),
     nameEN: Joi.string().required().messages({
       'any.required': 'Поле "nameEN" обязательно должно быть заполнено',
