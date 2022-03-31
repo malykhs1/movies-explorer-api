@@ -9,14 +9,14 @@ const getMovies = (req, res, next) => Movie.find({ owner: req.user._id })
 
 const createMovie = (req, res, next) => {
   const {
-    country, director, duration, year, description, image,
-    trailer, thumbnail, nameRU, nameEN, movieId,
+    nameRU, country, director, duration, year, description, image,
+    trailer, thumbnail, nameEN, movieId,
   } = req.body;
   const owner = req.user._id;
 
   return Movie.create({
     // eslint-disable-next-line max-len
-    country, director, duration, year, description, image, trailer, thumbnail, nameRU, nameEN, movieId, owner,
+    nameRU, country, director, duration, year, description, image, trailer, thumbnail, nameEN, movieId, owner,
   })
     .then((movie) => res.status(201).send(movie))
     .catch((e) => {
