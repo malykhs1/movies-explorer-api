@@ -50,18 +50,18 @@ const movieSchema = new mongoose.Schema({
       message: 'Это не ссылка',
     },
   },
-  owner: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    ref: 'user',
+  nameEN: {
+    type: String,
+    require: true,
   },
   movieId: {
     type: Number,
     require: true,
   },
-  nameEN: {
-    type: String,
-    require: true,
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'user',
   },
 });
 

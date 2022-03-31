@@ -8,6 +8,8 @@ const app = express();
 const { PORT = 3000 } = process.env;
 // импорт БД
 const mongoose = require('mongoose');
+// cors
+const cors = require('cors');
 // импортов роутов
 const { errors } = require('celebrate');
 // устанавливаем Rate Limeter
@@ -19,10 +21,22 @@ const errorHandler = require('./middlewares/handlerError');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { DATABASE } = require('./configs');
 
+const options = {
+  origin: [
+    'http://localhost:3001',
+  ],
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+  allowedHeaders: ['Content-Type', 'origin', 'Authorization'],
+  credentials: true,
+};
+
 // подключаем БД
 mongoose.connect(DATABASE, {
   useNewUrlParser: true,
 });
+app.use('*', cors(options));
 
 app.use(helmet());
 app.use(express.json());
