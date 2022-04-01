@@ -23,9 +23,10 @@ const { DATABASE } = require('./configs');
 
 const options = {
   origin: [
-    'http://localhost:3001',
     'http://malykhs-diplom.nomoredomains.work',
     'https://malykhs-diplom.nomoredomains.work',
+    'http://api.malykhs-diplom.nomoredomains.rocks',
+    'http://localhost:3001',
   ],
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
   preflightContinue: false,
